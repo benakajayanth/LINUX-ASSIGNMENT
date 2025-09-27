@@ -1,0 +1,270 @@
+             DAYANANDA SAGAR UNIVERSITY
+                 LINUX PROGRAMMING
+                   ASSIGNMENTS-2
+
+NAME        : BENAKA JAYANTH S
+USN            : ENG24CY0088
+ROLL NO    :15
+SEACTION  : A 
+
+1.	What does the command pwd, whoami, and hostname disply?
+________________________________________
+1. pwd — Print Working Directory
+•	Displays: The full path of the current directory you're in.
+•	Example output:
+•	/home/username/Documents
+________________________________________
+2. whoami — Who Am I
+•	Displays: The username of the person currently logged into the shell.
+•	Example output:
+•	username
+________________________________________
+3. hostname — Host Name
+•	Displays: The name of the computer (host) on the network.
+•	Example output:
+•	my-computer-name
+
+2.	Write the command to create a directory named “project” inside the /home/student folder and keep three .txt file into it. Give output snapshot.
+✅ Command to create a directory named project inside /home/student:
+mkdir /home/student/project
+________________________________________
+✅ Commands to create three .txt files inside that directory:
+touch /home/student/project/file1.txt
+touch /home/student/project/file2.txt
+touch /home/student/project/file3.txt
+________________________________________
+✅ Or combine all three into a single command:
+touch /home/student/project/file1.txt /home/student/project/file2.txt /home/student/project/file3.txt
+________________________________________
+✅ Optional: Verify the files were created with ls:
+ls /home/student/project
+Expected Output:
+file1.txt  file2.txt  file3.txt
+________________________________________
+📸 Output Snapshot (Text Representation):
+$ mkdir /home/student/project
+$ touch /home/student/project/file1.txt /home/student/project/file2.txt /home/student/project/file3.txt
+$ ls /home/student/project
+file1.txt  file2.txt  file3.txt
+
+3.	Explain the difference between absolute path and relative path with proper examples.
+Difference Between Absolute Path and Relative Path (with Examples)
+________________________________________
+🔹 1. Absolute Path
+➤ Definition:
+An absolute path is the complete path from the root directory / to the target file or directory.
+It always starts with / and gives the full location in the file system.
+➤ Example:
+Suppose there's a file located in:
+/home/student/project/file1.txt
+This is the absolute path to file1.txt.
+✅ Characteristics:
+•	Starts from the root directory /
+•	Works from any location in the system
+•	Unambiguous (always points to the same file)
+________________________________________
+🔹 2. Relative Path
+➤ Definition:
+A relative path specifies the location of a file relative to the current working directory.
+It does not start with /.
+➤ Example:
+If your current working directory is:
+/home/student
+Then you can access file1.txt using:
+project/file1.txt
+This is a relative path because it starts from your current directory.
+You could also use:
+./project/file1.txt
+(. means current directory)
+Or:
+../student/project/file1.txt
+(.. means one directory up)
+
+4.	What command will give you the already executed command traces in the terminal. Give output snapshot.
+
+🔹 Command:
+history
+________________________________________
+🔍 Explanation:
+•	The history command displays a list of previously executed commands in your terminal session.
+•	Each command is listed with a line number, which can be used with ! to re-run a specific command.
+________________________________________
+📸 Output Snapshot (Text Representation):
+$ history
+  1  pwd
+  2  whoami
+  3  mkdir /home/student/project
+  4  touch /home/student/project/file1.txt
+  5  touch /home/student/project/file2.txt
+  6  touch /home/student/project/file3.txt
+  7  ls /home/student/project
+  8  history
+________________________________________
+✅ Bonus: Search in History
+You can search through history using:
+history | grep mkdir
+✅ Bonus: Repeat a Command from History
+!4
+
+5.	Compare the working functionality of find and locate command. Which one is faster and why?
+1. find Command
+➤ Functionality:
+•	Searches files in real-time by traversing the actual file system.
+•	Can apply complex filters like name, type, size, modification time, permissions, etc.
+➤ Syntax:
+find /path/to/search -name "filename"
+➤ Example:
+find /home/student -name "file1.txt"
+✅ Pros:
+•	Always up-to-date (real-time).
+•	Powerful and flexible (supports complex conditions and actions).
+❌ Cons:
+•	Slower, especially on large file systems.
+•	Requires reading every directory and file in the search path.
+________________________________________
+🔎 2. locate Command
+➤ Functionality:
+•	Searches a pre-built database (mlocate.db) that indexes file names across the system.
+•	Database is usually updated by a background job (updatedb), not in real-time.
+➤ Syntax:
+locate filename
+➤ Example:
+locate file1.txt
+✅ Pros:
+•	Very fast — much quicker than find because it searches a local database, not the disk.
+•	Simple to use.
+❌ Cons:
+•	Might return outdated results if the database hasn’t been updated.
+•	Doesn’t support complex filtering like file size or permissions.
+________________________________________
+⚡️ Which One is Faster?
+•	locate is faster than find because it searches a pre-built index, not the live file system.
+•	find is slower but more accurate and powerful.
+
+6.	Which command is used to modify file permissions in Linux? Give an example.
+
+🔹 Command:
+chmod (change mode)
+________________________________________
+🔍 What it does:
+chmod is used to change the permissions of files and directories (read, write, execute).
+________________________________________
+🔹 Basic Syntax:
+chmod [options] mode filename
+________________________________________
+🔹 Example:
+Suppose you have a file named script.sh and you want to:
+•	Allow the owner to read, write, and execute
+•	Allow the group and others to only read and execute
+You can run:
+chmod 755 script.sh
+________________________________________
+🔹 Explanation of 755:
+•	7 = read (4) + write (2) + execute (1) = 7 (for owner)
+•	5 = read (4) + execute (1) = 5 (for group)
+•	5 = read (4) + execute (1) = 5 (for others)
+________________________________________
+🔹 Check the permissions:
+ls -l script.sh
+Output:
+-rwxr-xr-x 1 user user 1234 Sep 27 12:00 script.sh
+________________________________________
+🔹 Other ways to use chmod:
+•	Symbolic notation, e.g.:
+chmod u+x script.sh  # adds execute permission for user (owner)
+chmod g-w file.txt   # removes write permission from group
+
+7.	A file has permissions -rw -r- -r- -. What does this mean?
+It is divided into 4 parts:
+1.	First character (-) → Type of file
+o	- : regular file
+o	d : directory
+o	l : symbolic link
+Here, it’s a regular file.
+2.	Next 3 characters (rw-) → Owner permissions
+o	r : read permission ✅
+o	w : write permission ✅
+o	- : no execute permission ❌
+→ Owner can read and write, but not execute.
+3.	Next 3 characters (r--) → Group permissions
+o	r : read permission ✅
+o	- : no write ❌
+o	- : no execute ❌
+→ Group can only read.
+4.	Last 3 characters (r--) → Others (world) permissions
+o	r : read permission ✅
+o	- : no write ❌
+o	- : no execute ❌
+→ Others can only read.
+________________________________________
+✅ Final Meaning:
+•	Owner: read + write
+•	Group: read only
+•	Others: read only
+•	File type: regular file
+
+8.	Explain the difference between chown and chgrp with an example.
+1. chown (Change Owner)
+•	Used to change the owner (user) of a file/directory.
+•	Syntax:
+•	chown new_owner filename
+•	Example:
+•	ls -l file.txt
+•	-rw-r--r-- 1 alice staff 1234 Sep 27 19:00 file.txt
+Here, owner = alice, group = staff.
+If we run:
+sudo chown bob file.txt
+→ Now bob becomes the owner:
+-rw-r--r-- 1 bob staff 1234 Sep 27 19:00 file.txt
+________________________________________
+2. chgrp (Change Group)
+•	Used to change the group ownership of a file/directory.
+•	Syntax:
+•	chgrp new_group filename
+•	Example:
+•	ls -l file.txt
+•	-rw-r--r-- 1 bob staff 1234 Sep 27 19:00 file.txt
+If we run:
+sudo chgrp developers file.txt
+→ Now the group becomes developers:
+-rw-r--r-- 1 bob developers 1234 Sep 27 19:00 file.txt
+
+9.	A file needs to be accessible by multiple users but only writable by the owner. How will you set permissions?
+Permission Breakdown
+•	Owner: rw- → read + write
+•	Group: r-- → read only
+•	Others: r-- → read only
+So the permission string is:
+-rw-r--r--
+Numeric (Octal) Form
+644
+________________________________________
+Command to Set It
+chmod 644 filename
+This ensures:
+•	Owner can read/write.
+•	Group + others can read only.
+•	Only the owner can make modifications.
+
+10.	How do you check the manual page for any Linux commands?
+To check the manual page:
+man command_name
+✅ Example:
+man ls
+This will open the manual for the ls command.
+________________________________________
+Useful Tips with man:
+1.	Navigation
+o	Use ↑ and ↓ or Space to scroll.
+o	Press q to quit the manual page.
+2.	Search inside man pages
+o	Type /keyword and press Enter to search.
+o	Use n to jump to the next match.
+3.	Find available man pages for a command
+4.	man -f command
+(Same as whatis command)
+5.	Search by keyword if you don’t know the exact command
+6.	man -k keyword
+Example:
+man -k copy
+→ Shows commands related to file copying like cp, scp, rsync.
