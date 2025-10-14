@@ -1,0 +1,252 @@
+            DAYANANDA SAGAR UNIVERSITY
+                LINUX PROGRAMMING
+                 ASSIGNMENTS-6
+NAME      : BENAKA JAYANTH S
+USN       : ENG24CY0088
+ROLL NO   :15
+SEACTION  : A
+
+
+1.	Which command is used to list the contents of a directory? Justify with proper example.
+The command used to list the contents of a directory in Linux is:
+ls
+ 
+Explanation:
+•	ls stands for list.
+•	It displays the files and directories present in the current directory by default.
+•	It can be combined with options to show more details, hidden files, or specific formats.
+ 
+Examples:
+1.	Basic usage:
+ls
+Output example:
+Documents  Downloads  Pictures  file1.txt  file2.txt
+This shows all files and directories in the current directory.
+ 
+2.	List with detailed information:
+ls -l
+Output example:
+-rw-r--r--  1 user user  1024 Oct 13 18:00 file1.txt
+drwxr-xr-x  2 user user  4096 Oct 12 15:30 Documents
+•	-l shows details like permissions, owner, size, and modification date.
+•	-d is for directories only, -a shows hidden files (starting with .).
+ 
+3.	List including hidden files:
+ls -a
+Output example:
+.  ..  .bashrc  Documents  file1.txt
+•	. → current directory
+•	.. → parent directory
+•	.bashrc → hidden file
+
+2.	Write the command to create a new directory named 123test_dir.
+To create a new directory named 123test_dir in Linux, you use the mkdir command:
+mkdir 123test_dir
+ 
+Explanation:
+•	mkdir stands for make directory.
+•	This command creates a new directory in the current working directory with the specified name.
+•	You can also create multiple directories at once:
+mkdir dir1 dir2 dir3
+•	Or create nested directories in one go using -p:
+mkdir -p parent_dir/child_dir
+This will create parent_dir (if it doesn’t exist) and inside it child_dir.
+ 
+So, for your case, the simplest command is:
+mkdir 123test_dir
+``` ✅
+
+
+3.	What is the purpose of the sed command? Justify with proper example.
+Purpose of sed:
+1.	Modify text in files automatically.
+2.	Search and replace patterns.
+3.	Delete or insert lines.
+4.	Extract specific text or lines from a file or output.
+ 
+Basic Syntax:
+sed [options] 'command' filename
+•	command is usually something like s/pattern/replacement/ for substitution.
+•	filename is the file you want to edit.
+ 
+Examples:
+1.	Substitute text in a file
+sed 's/oldtext/newtext/' example.txt
+•	Replaces the first occurrence of oldtext with newtext in each line of example.txt.
+•	Example:
+Content of example.txt:
+Hello World
+Hello Linux
+Command:
+sed 's/Hello/Hi/' example.txt
+Output:
+Hi World
+Hi Linux
+ 
+2.	Delete a specific line
+sed '2d' example.txt
+•	Deletes line 2 of the file.
+ 
+3.	Print specific lines
+sed -n '1,3p' example.txt
+•	Prints lines 1 to 3 only (-n suppresses automatic printing).
+ 
+4.	Replace all occurrences in each line
+sed 's/oldtext/newtext/g' example.txt
+•	g stands for global, replaces all occurrences in a line, not just the first.
+
+
+4.	Which distinct command is used to display one-line descriptions of any commands?
+The command used to display one-line descriptions of any command in Linux is:
+whatis
+ 
+Explanation:
+•	whatis shows a brief, one-line description of a command.
+•	It searches the manual page database (man pages) for the specified command.
+•	Useful when you want a quick summary without opening the full manual.
+ 
+Syntax:
+whatis command_name
+ 
+Example:
+whatis ls
+Output:
+ls (1)               - list directory contents
+•	Here, (1) indicates the section of the man pages (general commands).
+•	The description list directory contents is the one-line summary.
+ 
+✅ Conclusion:
+whatis is ideal for quickly understanding what a command does without reading the full manual.
+For example:
+whatis grep
+Output:
+grep (1)              - print lines that match patterns
+It’s simpler than man if you just want a short description.
+
+5.	Write the command to create an empty file named “notes.txt”.
+To create an empty file named notes.txt in Linux, you can use the touch command:
+touch notes.txt
+ 
+Explanation:
+•	touch is primarily used to update the timestamp of a file, but if the file does not exist, it creates an empty file with the specified name.
+•	It does not add any content to the file—it will be 0 bytes initially.
+ 
+Example:
+touch notes.txt
+ls -l
+Output:
+-rw-r--r-- 1 user user 0 Oct 13 19:30 notes.txt
+•	Shows that notes.txt has been created and is currently empty (0 bytes).
+
+6.	Differentiate between grep and awk commands with an example.
+Here’s a clear differentiation between grep and awk commands in Linux, along with examples:
+ 
+ Purpose
+Feature	grep	awk
+Primary Use	Search for patterns or text in files	Text processing and data extraction
+Functionality	Filters lines containing a specific pattern	Can manipulate, extract, and format fields
+Complexity	Simple, only pattern matching	More powerful, supports programming logic
+ 
+ Key Differences
+Aspect	grep	awk
+Pattern Matching	Yes, line-based	Yes, can match and process fields
+Field Processing	Limited	Can split lines into fields and process
+Output Manipulation	Displays matching lines only	Can print, modify, or calculate fields
+Programming Features	No	Yes (conditions, loops, calculations)
+
+7.	Write the command to give read, write, and execute permission to the owner of a file script.sh.
+To give read, write, and execute permissions to the owner of a file script.sh, you can use the chmod command:
+chmod u+rwx script.sh
+ 
+Explanation:
+•	chmod → change mode, used to modify file permissions.
+•	u → user (the owner of the file).
+•	rwx → read (r), write (w), execute (x) permissions.
+•	script.sh → the file you are modifying.
+ 
+Example:
+ls -l script.sh
+Before:
+-rw-r--r-- 1 user user 1024 Oct 13 19:40 script.sh
+chmod u+rwx script.sh
+ls -l script.sh
+After:
+-rwxr--r-- 1 user user 1024 Oct 13 19:40 script.sh
+•	The owner now has full permissions (rwx).
+•	Group and others remain unchanged.
+
+8.	How is chown different from chgrp? Give one example for each.
+9.	Here’s a clear differentiation between chown and chgrp commands in Linux, along with examples:
+10.	 
+11.	1. Purpose
+Command	Purpose
+chown	Changes the owner of a file or directory.
+chgrp	Changes the group ownership of a file or directory.
+12.	 
+13.	2. Key Differences
+Aspect	chown	chgrp
+Changes	Owner (user)	Group
+Syntax	chown new_owner filename	chgrp new_group filename
+Requires	Root privileges to change ownership to another user	Usually does not require root if user is part of the group
+
+9. A user complains that they cannot execute a file even though it exists in their directory. How would you troubleshoot this using ls -l, chmod, and whoami?
+
+Here’s a step-by-step approach to troubleshoot why a user cannot execute a file even though it exists, using ls -l, chmod, and whoami:
+ 
+Step 1: Check file permissions using ls -l
+ls -l filename
+Example output:
+-rw-r--r-- 1 user user 1024 Oct 13 20:10 script.sh
+Analysis:
+•	The first column shows permissions: -rw-r--r--
+o	r → read
+o	w → write
+o	x → execute
+•	The owner (user) has read and write (rw-) but no execute (x).
+•	Without x permission, the file cannot be executed.
+ 
+Step 2: Check the current user using whoami
+whoami
+Example output:
+user
+•	Confirms which user is attempting to execute the file.
+•	Compare this with the owner and group from ls -l.
+ 
+Step 3: Grant execute permission using chmod
+•	If the owner is running the file:
+chmod u+x filename
+•	If group members need execute access:
+chmod g+x filename
+•	If everyone should have execute access:
+chmod a+x filename
+ 
+Step 4: Verify the change
+ls -l filename
+Output after adding execute for owner:
+-rwxr--r-- 1 user user 1024 Oct 13 20:10 script.sh
+•	Now the owner has execute permission (x) and can run the file:
+./script.sh
+ 
+Summary of Steps
+1.	ls -l filename → Check file permissions.
+2.	whoami → Verify the current user.
+3.	chmod → Add execute permission if missing.
+4.	Try executing → ./filename.
+
+
+
+10. Design a command pipeline to: find all .log files modified in the last 2 days in /var/log, display them on screen, and save the results into a file recent_logs.txt using tee command.
+
+You want a Linux command pipeline that:
+1.	Finds all .log files in /var/log modified in the last 2 days.
+2.	Displays the results on the screen.
+3.	Saves the output to recent_logs.txt using tee.
+Here’s the command:
+find /var/log -name "*.log" -type f -mtime -2 | tee recent_logs.txt
+Explanation step by step:
+1.	find /var/log → Start searching in /var/log.
+2.	-name "*.log" → Look for files ending with .log.
+3.	-type f → Ensure only regular files are selected (not directories).
+4.	-mtime -2 → Modified in the last 2 days (-2 means less than 2 days ago).
+5.	| tee recent_logs.txt → Pipe the output to tee, which:
+
