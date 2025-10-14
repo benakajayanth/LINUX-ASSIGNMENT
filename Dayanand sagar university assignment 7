@@ -1,0 +1,232 @@
+             DAYANANDA SAGAR UNIVERSITY
+                   LINUX PROGRAMMING
+                     ASSIGNMENTS-7
+NAME      : BENAKA JAYANTH S
+USN       : ENG24CY0088
+ROLL NO   :15
+SEACTION  : A
+
+
+1.	What is a bash shell script? Give one example.
+A Bash shell script is a plain text file that contains a series of commands written for the Bash shell (Bourne Again SHell) to execute. It automates tasks in Linux/Unix environments, such as file management, program execution, or system monitoring, by running multiple commands sequentially without manually typing them each time.
+Key points about Bash shell scripts:
+•	They usually start with a shebang line: #!/bin/bash to indicate the script should run with Bash.
+•	They can include variables, loops, conditionals, and functions.
+•	File permissions must allow execution (chmod +x script.sh).
+Example Bash script:
+#!/bin/bash
+# This script greets the user
+
+echo "Hello, $USER! Today is $(date)."
+
+2.	Write a simple shell script to print “Hello World”.
+Here’s a simple Bash shell script to print “Hello World”:
+#!/bin/bash
+# This script prints Hello World
+
+echo "Hello World"
+Steps to run it:
+1.	Save the script in a file, e.g., hello.sh.
+2.	Make it executable:
+chmod +x hello.sh
+3.	Run the script:
+./hello.sh
+Output:
+Hello World
+This is the most basic example of a Bash shell script.
+
+3.	What is the purpose of comments (#) in a shell script?
+Key purposes of comments (#):
+1.	Documentation: Explain what the script or a particular command does.
+2.	Readability: Make scripts easier to understand for others or yourself in the future.
+3.	Debugging: Temporarily disable commands by turning them into comments.
+Example:
+#!/bin/bash
+
+# This script prints a greeting message
+echo "Hello World"  # Display Hello World on the screen
+
+4. How do you declare variables (int, float, double, string, Boolean, and char in a shell script? Here’s how you can declare different types conceptually in a shell script:
+ 
+1. String
+name="Benaka"
+echo "Name: $name"
+ 
+2. Integer
+age=25
+echo "Age: $age"
+•	To perform arithmetic, use $(( )):
+new_age=$((age + 5))
+echo "New Age: $new_age"
+ 
+3. Float / Double
+Bash does not natively support floating-point arithmetic, but you can use bc or awk:
+pi=3.14
+radius=2
+area=$(echo "$pi * $radius * $radius" | bc)
+echo "Area: $area"
+ 
+4. Boolean
+Bash uses 0 (true) and 1 (false) in conditional expressions:
+is_sunny=true
+
+if [ "$is_sunny" = true ]; then
+  echo "Go for a walk!"
+else
+  echo "Stay indoors!"
+fi
+ 
+5. Character
+Characters are just single-character strings in Bash:
+char="A"
+echo "Character: $char"
+ 
+Notes:
+•	No need to specify int, float, or char explicitly.
+•	Use quotes for strings with spaces: greeting="Hello World"
+•	Use $(( )) for integers and bc/awk for floats.
+
+
+5.Write a shell script to display the current date and time of the system.
+Here’s a simple Bash shell script to display the current date and time of the system:
+#!/bin/bash
+# This script displays the current date and time
+
+echo "Current Date and Time: $(date)"
+ 
+Steps to run the script:
+1.	Save the script in a file, e.g., datetime.sh
+2.	Make it executable:
+chmod +x datetime.sh
+3.	Run the script:
+./datetime.sh
+ 
+Sample Output:
+Current Date and Time: Mon Oct 13 20:50:32 IST 2025
+
+6. Explain the difference between a constant and a variable in bash script.
+ 1. Variable
+•	A variable is a named storage that can change its value at any time during the script execution.
+•	Syntax:
+variable_name=value
+•	Example:
+count=5
+echo "Count: $count"
+
+count=10   # Variable value changed
+echo "Updated Count: $count"
+Output:
+Count: 5
+Updated Count: 10
+ 
+2. Constant
+•	A constant (also called a readonly variable) is a value that cannot be changed once assigned.
+•	You can create a constant using the readonly keyword or declare -r.
+•	Example:
+readonly PI=3.14159
+echo "PI: $PI"
+
+# Trying to change it will give an error
+PI=3
+Output:
+bash: PI: readonly variable
+ 
+Key Differences:
+Feature	Variable	Constant / Readonly
+Can be changed	✅ Yes	❌ No
+Declaration	var=value	readonly var=value
+Use case	Dynamic data	Fixed data that shouldn’t change (e.g., PI)
+
+
+7. Write a shell script to read two integer number from the user and compute the sum of both the number.
+Here’s a simple Bash shell script to read two integers from the user and compute their sum:
+#!/bin/bash
+# This script reads two integers from the user and computes their sum
+
+# Read the first number
+read -p "Enter the first number: " num1
+
+# Read the second number
+read -p "Enter the second number: " num2
+
+# Calculate the sum
+sum=$((num1 + num2))
+
+# Display the result
+echo "The sum of $num1 and $num2 is: $sum"
+ 
+How to run the script:
+1.	Save it as sum.sh
+2.	Make it executable:
+chmod +x sum.sh
+3.	Run it:
+./sum.sh
+
+8. What is the use of source command in shell scripting?
+Key Uses of source:
+1.	Load variables and functions into the current shell
+o	If you have a script that defines variables or functions, using source makes them available in your current shell session.
+2.	Apply changes immediately
+o	Useful for scripts that modify environment variables (like PATH) without logging out or starting a new shell.
+3.	Run configuration files
+o	Commonly used to apply settings from files like .bashrc or .bash_profile.
+
+9. How can you debug a shell script? Give two methods.
+1. Using -x option (Trace Execution)
+•	Run the script with bash -x to display each command and its arguments as they are executed.
+•	You can also add set -x inside the script to enable debugging for a portion of it.
+Example:
+#!/bin/bash
+set -x   # Enable debugging
+
+a=5
+b=0
+sum=$((a + b))
+echo "Sum: $sum"
+
+set +x   # Disable debugging
+Or run externally:
+bash -x script.sh
+•	This prints each command before executing it, showing variable values and flow.
+ 
+2. Using -v option (Verbose Mode)
+•	Run the script with bash -v to display each line as it is read, before execution.
+•	Helps understand which lines are being processed.
+Example:
+bash -v script.sh
+
+10. Write a bash script to create and delete a file.
+Here’s a simple Bash script to create and delete a file based on user input:
+#!/bin/bash
+# This script creates and deletes a file
+
+# Read the file name from the user
+read -p "Enter the file name: " filename
+
+# Create the file
+touch "$filename"
+echo "File '$filename' has been created."
+
+# Ask if the user wants to delete the file
+read -p "Do you want to delete the file? (y/n): " choice
+
+if [ "$choice" = "y" ] || [ "$choice" = "Y" ]; then
+    rm "$filename"
+    echo "File '$filename' has been deleted."
+else
+    echo "File '$filename' is not deleted."
+fi
+ 
+Steps to run the script:
+1.	Save it as file_manage.sh
+2.	Make it executable:
+chmod +x file_manage.sh
+3.	Run it:
+./file_manage.sh
+ 
+Sample Output:
+Enter the file name: test.txt
+File 'test.txt' has been created.
+Do you want to delete the file? (y/n): y
+File 'test.txt' has been deleted.
+
