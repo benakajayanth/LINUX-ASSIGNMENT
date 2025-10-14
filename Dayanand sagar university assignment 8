@@ -1,0 +1,254 @@
+            DAYANANDA SAGAR UNIVERSITY
+                 LINUX PROGRAMMING
+                   ASSIGNMENTS-8
+NAME      : BENAKA JAYANTH S
+USN       : ENG24CY0088
+ROLL NO   :15
+SEACTION  : A
+
+1.	What is a user-defined function in shell scripting? Explain with an example.
+Key Points about Functions in Bash:
+1.	Declared using the syntax:
+function_name() {
+    # commands
+}
+2.	Functions can accept arguments ($1, $2, …).
+3.	Functions can return a value using return (limited to integers 0–255).
+
+2.	Write a bash script with a function that multiply two integer numbers.
+Here’s a Bash script that defines a function to multiply two integers and displays the result:
+#!/bin/bash
+# This script multiplies two integers using a function
+
+# Function to multiply two numbers
+multiply() {
+    result=$(( $1 * $2 ))
+    echo "The multiplication of $1 and $2 is: $result"
+}
+
+# Read two integers from the user
+read -p "Enter the first number: " num1
+read -p "Enter the second number: " num2
+
+# Call the function with the input numbers
+multiply "$num1" "$num2"
+ 
+Steps to run the script:
+1.	Save it as multiply.sh
+2.	Make it executable:
+chmod +x multiply.sh
+3.	Run it:
+./multiply.sh
+ 
+Sample Output:
+Enter the first number: 6
+Enter the second number: 7
+The multiplication of 6 and 7 is: 42
+
+3.	Explain how arrays (1D, 2D, and 3D) are declared in bash scripting.
+1. One-Dimensional (1D) Arrays
+•	A 1D array stores a list of values indexed by numbers starting from 0.
+Declaration:
+# Method 1: Using parentheses
+fruits=("Apple" "Banana" "Cherry")
+
+# Method 2: Assigning individually
+fruits[0]="Apple"
+fruits[1]="Banana"
+fruits[2]="Cherry"
+
+# Accessing elements
+echo "${fruits[0]}"  # Output: Apple
+
+# Length of array
+echo "${#fruits[@]}"  # Output: 3
+ 
+2. Two-Dimensional (2D) Arrays
+•	Bash does not have native 2D arrays, but we can simulate them using indexed arrays.
+Example using indexed 1D array:
+# Simulating 2D array (3x3)
+matrix=(1 2 3 4 5 6 7 8 9)
+
+# Access element at row 2, column 3
+# Formula: index = (row-1)*columns + (column-1)
+row=2
+col=3
+cols=3
+index=$(( (row-1)*cols + (col-1) ))
+echo "Element at (2,3): ${matrix[$index]}"  # Output: 6
+Example using associative arrays (more readable):
+declare -A matrix
+matrix[1,1]=10
+matrix[1,2]=20
+matrix[2,1]=30
+matrix[2,2]=40
+
+echo "${matrix[1,2]}"  # Output: 20
+ 
+3. Three-Dimensional (3D) Arrays
+•	Similar to 2D arrays, 3D arrays are simulated using associative arrays.
+Example:
+declare -A cube
+cube[1,1,1]=5
+cube[1,1,2]=10
+cube[1,2,1]=15
+
+echo "Element at (1,1,2): ${cube[1,1,2]}"  # Output: 10
+•	Here, the key is a combination of indices separated by commas.
+
+4.	Write a shell script to display elements of an array.
+Here’s a simple Bash shell script to display elements of a 1D array:
+#!/bin/bash
+# This script demonstrates how to display elements of an array
+
+# Declare an array
+fruits=("Apple" "Banana" "Cherry" "Mango")
+
+# Display all elements
+echo "All fruits: ${fruits[@]}"
+
+# Display each element individually using a loop
+echo "Fruits one by one:"
+for fruit in "${fruits[@]}"
+do
+    echo "$fruit"
+done
+
+# Display the number of elements in the array
+echo "Total number of fruits: ${#fruits[@]}"
+
+5.	What is the purpose of cron in Linux?
+In Linux, cron is a time-based job scheduler used to automatically execute tasks (scripts, commands, or programs) at specified intervals or times.
+ 
+Purpose of cron:
+1.	Automate repetitive tasks
+o	Run backups, clean temporary files, or update software automatically.
+2.	Schedule tasks at specific times
+o	Daily, weekly, monthly, or even every minute.
+3.	Maintain system administration
+o	Tasks like log rotation, system monitoring, or sending reports can be automated.
+4.	Run scripts in the background without user intervention
+o	Cron jobs run silently at scheduled times.
+ 
+How it works:
+•	Cron uses a file called crontab to store scheduled tasks.
+•	Each line in crontab specifies when and what to execute.
+Crontab format:
+* * * * * command_to_run
+- - - - -
+| | | | |
+| | | | +---- Day of the week (0-7, Sunday=0 or 7)
+| | | +------ Month (1-12)
+| | +-------- Day of the month (1-31)
+| +---------- Hour (0-23)
++------------ Minute (0-59)
+Example:
+0	5 * * * /home/user/backup.sh
+
+6.Write a cron job to run a backup script every day at midnight.
+Cron Job Entry:
+0 0 * * * /home/user/backup.sh
+ 
+Explanation:
+Field	Value	Meaning
+Minute	0	At minute 0
+Hour	0	At 00:00 (midnight)
+Day of month	*	Every day of the month
+Month	*	Every month
+Day of week	*	Every day of the week
+Command	/home/user/backup.sh	Script to execute
+ 
+Steps to add the cron job:
+1.	Open the crontab editor for your user:
+crontab -e
+2.	Add the above line at the end of the file.
+3.	Save and exit.
+4.	Verify your cron jobs:
+
+7.How do you schedule a one-time job using at command?
+Steps to schedule a one-time job using at:
+1.	Check if at is installed and enabled:
+at -V   # Check version
+•	You may need to start the atd daemon:
+sudo systemctl start atd
+sudo systemctl enable atd
+2.	Schedule a job:
+at 14:30
+•	This opens an interactive prompt where you can type the command(s) to run at 2:30 PM.
+3.	Type the command(s) and end with Ctrl+D:
+echo "Backup script running"
+bash /home/user/backup.sh
+<Ctrl+D>
+
+8. Write a script to display disk usage using df and du.
+Here’s a Bash script that displays disk usage using both df and du commands:
+#!/bin/bash
+# This script displays disk usage using df and du commands
+
+echo "=============================="
+echo "Disk space usage (df -h):"
+echo "=============================="
+df -h   # Shows free and used space of file systems in human-readable format
+
+echo ""
+echo "=============================="
+echo "Disk usage of current directory (du -h --max-depth=1):"
+echo "=============================="
+du -h --max-depth=1   # Shows disk usage of files and directories in current directory
+
+9. How can you log the output of a script using the tee command?
+Basic Syntax:
+command | tee filename
+•	command → any command or script output
+•	filename → file to store the output
+•	By default, tee overwrites the file.
+•	Use -a to append to the file instead of overwriting:
+command | tee -a filename
+ 
+Example 1: Logging script output
+#!/bin/bash
+# Script to display date and log it
+
+echo "Script started at $(date)" | tee script.log
+echo "Disk usage:" | tee -a script.log
+df -h | tee -a script.log
+echo "Script ended at $(date)" | tee -a script.log
+Explanation:
+•	tee script.log → saves output to script.log and shows on screen.
+•	tee -a script.log → appends subsequent outputs to the same log file.
+ 
+Example 2: Running a script and logging externally
+./my_script.sh | tee output.log
+•	Logs all output of my_script.sh to output.log while displaying it on the terminal.
+10. Explain with an example how shell scripting can automate system administration tasks.
+1.	Automate repetitive tasks
+o	Example: Cleaning temporary files every day.
+2.	Monitor system resources
+o	Example: Check disk space, memory usage, and send alerts.
+3.	Schedule tasks
+o	Use cron or at to run scripts automatically.
+4.	Backup and restore files
+o	Automatically copy important files to a backup location.
+5.	User management
+o	Create multiple users, set permissions, and configure accounts.
+ 
+Example: Automatic Backup Script
+#!/bin/bash
+# Backup home directory to /backup with timestamp
+
+# Variables
+SOURCE_DIR="/home/user"
+BACKUP_DIR="/backup"
+DATE=$(date +%Y-%m-%d_%H-%M-%S)
+LOG_FILE="/backup/backup.log"
+
+# Create backup directory if it doesn't exist
+mkdir -p "$BACKUP_DIR"
+
+# Perform backup using rsync
+rsync -av --delete "$SOURCE_DIR/" "$BACKUP_DIR/home_backup_$DATE/" | tee -a "$LOG_FILE"
+
+# Display completion message
+echo "Backup completed on $DATE" | tee -a "$LOG_FILE"
+
+
