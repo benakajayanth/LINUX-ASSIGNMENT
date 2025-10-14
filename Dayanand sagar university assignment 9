@@ -1,0 +1,314 @@
+             DAYANANDA SAGAR UNIVERSITY
+                 LINUX PROGRAMMING
+                   ASSIGNMENTS-8
+NAME      : BENAKA JAYANTH S
+USN       : ENG24CY0088
+ROLL NO   :15
+SEACTION  : A
+1.	Write a shell script using if…else to check if a number is even or odd.
+Here’s a Bash shell script that uses if…else to check whether a number is even or odd:
+#!/bin/bash
+      # Script to check if a number is even or odd
+
+# Read a number from the user
+      read -p "Enter a number: " num
+
+# Check if the number is even or odd
+if [ $((num % 2)) -eq 0 ]; then
+      echo "The number $num is even."
+else
+    echo "The number $num is odd."
+fi
+
+2.	Explain the difference between if and case statements in bash.
+1. if Statement
+•	Used to test conditions, such as numerical comparisons, string comparisons, or command exit statuses.
+•	Supports multiple conditional expressions using elif and else.
+•	Best for complex or range-based conditions.
+Syntax:
+if [ condition ]; then
+    # commands if condition is true
+elif [ another_condition ]; then
+    # commands if another_condition is true
+else
+    # commands if all conditions are false
+fi
+2. case Statement
+•	Used to match a value against multiple patterns.
+•	Often preferred for fixed set of options like menu choices or letters.
+•	Cleaner than multiple if…elif…else statements when testing discrete values.
+Syntax:
+case $variable in
+pattern1)
+    # commands
+    ;;
+pattern2)
+    # commands
+    ;;
+*)
+    # default commands
+    ;;
+esac
+
+3.	Write a script to find the largest of three numbers entered by the user.
+Here’s a Bash script to find the largest of three numbers entered by the user:
+#!/bin/bash
+# Script to find the largest of three numbers
+
+# Read three numbers from the user
+read -p "Enter the first number: " num1
+read -p "Enter the second number: " num2
+read -p "Enter the third number: " num3
+
+# Compare numbers using if...elif...else
+if [ "$num1" -ge "$num2" ] && [ "$num1" -ge "$num3" ]; then
+    largest=$num1
+elif [ "$num2" -ge "$num1" ] && [ "$num2" -ge "$num3" ]; then
+    largest=$num2
+else
+    largest=$num3
+fi
+
+# Display the result
+echo "The largest number is: $largest"
+ 
+Explanation:
+1.	read -p → Reads input from the user.
+2.	[ "$num1" -ge "$num2" ] → Checks if num1 is greater than or equal to num2.
+3.	Logical && ensures both conditions are true.
+4.	The script compares all three numbers and assigns the largest to a variable.
+
+4.How do you use a for loop to traverse an array in bash? Give an example. The array is defined as arr=(123, “Abs”, -2.3, ‘A’, 23.56, 0).
+In Bash, a for loop can be used to traverse each element of an array using the syntax ${array[@]}.
+ 
+Important Note:
+In Bash, array elements should not have commas between them. Commas are treated as part of the element. So the array should be defined as:
+arr=(123 "Abs" -2.3 'A' 23.56 0)
+ 
+Example: Traversing the array with a for loop
+#!/bin/bash
+# Script to traverse an array using a for loop
+
+# Define the array
+arr=(123 "Abs" -2.3 'A' 23.56 0)
+
+# Loop through each element
+echo "Array elements are:"
+for element in "${arr[@]}"
+do
+    echo "$element"
+done
+ 
+Explanation:
+1.	arr=(...) → Defines the array.
+2.	"${arr[@]}" → Expands all elements of the array.
+3.	for element in ...; do ... done → Iterates over each element.
+
+5.	Write a shell script to loop through all files in the current directory and display their names.
+
+Here’s a Bash shell script to loop through all files in the current directory and display their names:
+#!/bin/bash
+# Script to list all files in the current directory
+
+echo "Files in the current directory:"
+
+# Loop through all files
+for file in *
+do
+    # Check if it is a regular file
+    if [ -f "$file" ]; then
+        echo "$file"
+    fi
+done
+ 
+Explanation:
+1.	for file in * → Loops through all items in the current directory.
+2.	[ -f "$file" ] → Checks if the item is a regular file (ignores directories).
+3.	echo "$file" → Prints the file name.
+ 
+Sample Output:
+Files in the current directory:
+file1.txt
+script.sh
+notes.pdf
+image.png
+
+6.	What is the difference between while and until loops in bash?
+1. while Loop
+•	Executes the commands as long as the condition is true.
+•	Syntax:
+while [ condition ]
+do
+    # commands
+done
+•	Flow:
+Check condition → True? → Execute commands → Repeat
+Example:
+#!/bin/bash
+count=1
+while [ $count -le 5 ]
+do
+    echo "Count is $count"
+    count=$((count + 1))
+done
+Output:
+Count is 1
+Count is 2
+Count is 3
+Count is 4
+Count is 5
+ 
+2. until Loop
+•	Executes the commands as long as the condition is false.
+•	Stops when the condition becomes true.
+•	Syntax:
+until [ condition ]
+do
+    # commands
+done
+•	Flow:
+Check condition → False? → Execute commands → Repeat
+Example:
+#!/bin/bash
+count=1
+until [ $count -gt 5 ]
+do
+    echo "Count is $count"
+    count=$((count + 1))
+done
+Output:
+Count is 1
+Count is 2
+Count is 3
+Count is 4
+Count is 5
+ 
+Key Differences
+Feature	while Loop	until Loop
+Condition	Loop runs while true	Loop runs while false
+Execution	Stops when condition is false	Stops when condition is true
+Use case	When you know the true condition	When you know the exit condition
+Logic	Executes when condition = true	Executes when condition = false
+
+7.	Write a countdown timer script using a while loop.
+Here’s a Bash script for a simple countdown timer using a while loop:
+#!/bin/bash
+# Countdown timer script
+
+# Read the number of seconds from the user
+read -p "Enter countdown time in seconds: " seconds
+
+echo "Countdown starting..."
+
+# Loop until seconds reach 0
+while [ $seconds -gt 0 ]
+do
+    echo "$seconds seconds remaining"
+    sleep 1          # Wait for 1 second
+    seconds=$((seconds - 1))
+done
+
+echo "Time's up!"
+ 
+Explanation:
+1.	read -p → Get the countdown duration from the user.
+2.	while [ $seconds -gt 0 ] → Loop continues while seconds > 0.
+3.	sleep 1 → Pause for 1 second in each iteration.
+4.	seconds=$((seconds - 1)) → Decrease the timer by 1 each second.
+
+8.	How do you use break and continue statements in loops? Give examples.
+1. break Statement
+•	Purpose: Immediately exit the loop, regardless of the remaining iterations.
+•	Commonly used to stop processing when a condition is met.
+Example:
+#!/bin/bash
+# Break example
+for i in {1..10}
+do
+    if [ $i -eq 5 ]; then
+        echo "Reached $i, exiting loop."
+        break
+    fi
+    echo "Number: $i"
+done
+Output:
+Number: 1
+Number: 2
+Number: 3
+Number: 4
+Reached 5, exiting loop.
+ 
+2. continue Statement
+•	Purpose: Skip the current iteration and move to the next iteration of the loop.
+•	Useful to ignore specific values without exiting the loop.
+Example:
+#!/bin/bash
+# Continue example
+for i in {1..5}
+do
+    if [ $i -eq 3 ]; then
+        echo "Skipping $i"
+        continue
+    fi
+    echo "Number: $i"
+done
+Output:
+Number: 1
+Number: 2
+Skipping 3
+Number: 4
+Number: 5
+
+9.	Write a script to check if a file exists or not using the if and else loop.
+Here’s a Bash script to check if a file exists using if…else:
+#!/bin/bash
+# Script to check if a file exists
+
+# Read file name from the user
+read -p "Enter the file name to check: " filename
+
+# Check if the file exists
+if [ -e "$filename" ]; then
+    echo "File '$filename' exists."
+else
+    echo "File '$filename' does not exist."
+fi
+ 
+Explanation:
+1.	read -p → Takes the file name as input from the user.
+2.	[ -e "$filename" ] → Checks if the file exists (can be a file or directory).
+3.	if…else → Executes the appropriate block depending on the check.
+
+10.	Write a script to calculate factorial of a number using for loop.
+Here’s a Bash script to calculate the factorial of a number using a for loop:
+#!/bin/bash
+# Script to calculate factorial of a number
+
+# Read the number from the user
+read -p "Enter a non-negative integer: " num
+
+# Initialize factorial to 1
+factorial=1
+
+# Check if the number is negative
+if [ $num -lt 0 ]; then
+    echo "Factorial is not defined for negative numbers."
+    exit 1
+fi
+
+# Calculate factorial using for loop
+for (( i=1; i<=num; i++ ))
+do
+    factorial=$((factorial * i))
+done
+
+# Display the result
+echo "Factorial of $num is: $factorial"
+ 
+Explanation:
+1.	read -p → Gets the number from the user.
+2.	factorial=1 → Initializes the factorial result.
+3.	for (( i=1; i<=num; i++ )) → Loops from 1 to the number.
+4.	factorial=$((factorial * i)) → Multiplies each number in the loop.
+5.	Handles negative numbers with a check.
+
